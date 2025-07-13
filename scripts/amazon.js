@@ -1,3 +1,5 @@
+import {cart} from '../data/cart.js';
+
 let productsHTML = '';
 
 products.forEach((product) => {
@@ -21,11 +23,11 @@ products.forEach((product) => {
           </div>
 
           <div class="product-price">
-            ${(product.priceCents / 100).toFixed(2)}
+            $${(product.priceCents / 100).toFixed(2)}
           </div>
 
           <div class="product-quantity-container">
-            <select>
+            <select class="js-quantity-selector-${product.id}">
               <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -41,7 +43,7 @@ products.forEach((product) => {
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart js-added-cart-${product.id}">
             <img src="images/icons/checkmark.png">
             Added
           </div>
@@ -60,6 +62,23 @@ document.querySelectorAll('.js-add-to-cart')
       const productId = button.dataset.productId;
       let matchingItem;
 
+      const quantityElement = document.querySelector(`.js-quantity-selector-${productId}`);
+      const quantity = Number(quantityElement.value);
+
+      const addedMessage = document.querySelector(`.js-added-cart-${productId}`);
+      addedMessage.classList.add('added-into-cart');
+
+      let addedMessageTimeoutId;
+
+      setTimeout(() => {
+        if(addedMessageTimeoutId)
+          clearTimeout(addedMessageTimeoutId);
+        const timeOutId = setTimeout(() => {
+          addedMessage.classList.remove('added-into-cart');
+        }, 2000);
+        addedMessageTimeoutId = timeOutId;
+      });
+
       cart.forEach((item) => {
         if(productId === item.productId)
           matchingItem = item;
@@ -69,8 +88,8 @@ document.querySelectorAll('.js-add-to-cart')
         matchingItem.quantity++;
       else{
         cart.push({
-          productId: productId,
-          quantity: 1
+          productId,
+          quantity
         });
       }
 
