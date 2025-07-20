@@ -24,9 +24,17 @@ function saveToStorage() {
 export function addToCart(productId) {
   let matchingItem;
   const quantityElement = document.querySelector(`.js-quantity-selector-${productId}`);
+  if (!quantityElement) {
+    console.warn(`Quantity input not found for productId: ${productId}`);
+    return;
+  }
   const quantity = Number(quantityElement.value);
 
   const addedMessage = document.querySelector(`.js-added-cart-${productId}`);
+  if (!addedMessage) {
+    console.warn(`Cart message element not found for productId: ${productId}`);
+    return;
+  }
   addedMessage.classList.add('added-into-cart');
 
   let addedMessageTimeoutId;
