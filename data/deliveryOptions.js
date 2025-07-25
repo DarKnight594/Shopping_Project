@@ -15,13 +15,12 @@ export const deliveryOptions = [{
 }];
 
 export function getDeliveryOption(deliveryOptionId) {
-
-    let deliveryOption;
-    deliveryOptions.forEach((option) => {
-      if(option.id === deliveryOptionId)
-        deliveryOption = option;
-    });
-    return deliveryOption || deliveryOptions[0];
+  let deliveryOption;
+  deliveryOptions.forEach((option) => {
+    if(option.id === deliveryOptionId)
+      deliveryOption = option;
+  });
+  return deliveryOption || deliveryOptions[0];
 }
 
 function isWeekend(date) {

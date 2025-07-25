@@ -42,8 +42,8 @@ class Cart {
       return;
     }
     addedMessage.classList.add('added-into-cart');
-    let addedMessageTimeoutId;
 
+    let addedMessageTimeoutId;
     setTimeout(() => {
       if(addedMessageTimeoutId)
         clearTimeout(addedMessageTimeoutId);
@@ -110,6 +110,17 @@ class Cart {
 
     matchingItem.deliveryOptionId = deliveryOptionId;
     this.saveToStorage();
+  }
+
+  loadCart(fun) {
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', () => {
+      console.log(xhr.response);
+      fun();
+    });
+
+    xhr.open('GET', 'https://supersimplebackend.dev/cart');
+    xhr.send();
   }
 }
 
