@@ -120,14 +120,10 @@ export function renderOrderSummary() {
       link.addEventListener('click', () => {
         const productId = link.dataset.productId;
 
-        const container = document.querySelector(
-          `.js-cart-item-container-${productId}`
-        );
+        const container = document.querySelector(`.js-cart-item-container-${productId}`);
         container.classList.remove('is-editing-quantity');
 
-        const quantityInput = document.querySelector(
-          `.js-quantity-input-${productId}`
-        );
+        const quantityInput = document.querySelector(`.js-quantity-input-${productId}`);
         const newQuantity = Number(quantityInput.value);
         cart.updateQuantity(productId, newQuantity);
         renderOrderSummary();
