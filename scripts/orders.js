@@ -5,6 +5,7 @@ import {formatCurrency} from "./utils/money.js";
 import {cart} from '../data/cart-class.js';
 
 async function loadPage() {
+  updateCartQuantity();
   await loadProductFetch();
   let ordersHTML = '';
 
@@ -84,6 +85,7 @@ async function loadPage() {
   document.querySelectorAll('.js-buy-again').forEach((button) => {
     button.addEventListener('click', () => {
       cart.addToCart(button.dataset.productId);
+      updateCartQuantity();
       button.innerHTML = 'Added';
       setTimeout(() => {
         button.innerHTML = `
@@ -93,6 +95,11 @@ async function loadPage() {
       }, 1000);
     });
   });
+
+  function updateCartQuantity() {
+    const cartQuantity = cart.calculateCartQuantity();
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+  }
 }
 
 loadPage();
