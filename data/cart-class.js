@@ -27,31 +27,38 @@ class Cart {
     localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
   }
 
-  addToCart(productId) {
+  addToCart(productId, quantityToAdd = 1) {
     let matchingItem;
     const quantityElement = document.querySelector(`.js-quantity-selector-${productId}`);
-    if (!quantityElement) {
-      console.warn(`Quantity input not found for productId: ${productId}`);
-      return;
-    }
-    const quantity = Number(quantityElement.value);
+    let quantity = quantityToAdd;
+
+    if (quantityElement) {
+      const parsedQuantity = Number(quantityElement.value);
+      if (!isNaN(parsedQuantity) && parsedQuantity > 0) {
+          quantity = parsedQuantity;
+      } else {
+          console.warn(`Invalid quantity input for productId: ${productId}. Defaulting to ${quantity}.`);
+      }
+    } else {
+      console.log(`Quantity input not found for productId: ${productId}. Using default quantity: ${quantity}.`);
+    } 
 
     const addedMessage = document.querySelector(`.js-added-cart-${productId}`);
-    if (!addedMessage) {
-      console.warn(`Cart message element not found for productId: ${productId}`);
-      return;
-    }
-    addedMessage.classList.add('added-into-cart');
+    if (addedMessage) {
+      if (addedMessage.timeoutId)
+        clearTimeout(addedMessage.timeoutId);
+      
+      addedMessage.classList.add('added-into-cart');
 
-    let addedMessageTimeoutId;
-    setTimeout(() => {
-      if(addedMessageTimeoutId)
-        clearTimeout(addedMessageTimeoutId);
-      const timeOutId = setTimeout(() => {
-        addedMessage.classList.remove('added-into-cart');
+      const newTimeoutId = setTimeout(() => {
+          addedMessage.classList.remove('added-into-cart');
+          addedMessage.timeoutId = null;
       }, 2000);
-      addedMessageTimeoutId = timeOutId;
-    });
+
+      addedMessage.timeoutId = newTimeoutId;
+    } else {
+      console.warn(`Cart message element not found for productId: ${productId}. Cannot display "added to cart" message.`);
+    }
 
     this.cartItems.forEach((cartItem) => {
       if(productId === cartItem.productId)
@@ -59,7 +66,7 @@ class Cart {
     });
 
     if(matchingItem)
-      matchingItem.quantity++;
+      matchingItem.quantity += quantity;
     else{
       this.cartItems.push({
         productId,
@@ -83,21 +90,18 @@ class Cart {
 
   calculateCartQuantity() {
     let cartQuantity = 0;
-    this.cartItems.forEach((cartItem) => {
-      cartQuantity += cartItem.quantity;
-    });
+    this.cartItems.forEach((cartItem) => { cartQuantity += cartItem.quantity; });
     return cartQuantity;
   }
 
   updateQuantity(productId, newQuantity) {
     let matchingItem;
     this.cartItems.forEach((cartItem) => {
-      if (productId === cartItem.productId) {
+      if (productId === cartItem.productId)
         matchingItem = cartItem;
-      }
     });
-    matchingItem.quantity = newQuantity;
 
+    matchingItem.quantity = newQuantity;
     this.saveToStorage();
   }
 
@@ -112,15 +116,17 @@ class Cart {
     this.saveToStorage();
   }
 
-  loadCart(fun) {
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', () => {
-      console.log(xhr.response);
-      fun();
-    });
+  clearCart() {
+    this.cartItems = [];
+    this.saveToStorage();
+    console.log('Cart has been cleared.');
+  }
 
-    xhr.open('GET', 'https://supersimplebackend.dev/cart');
-    xhr.send();
+  async loadCartFetch() {
+    const response = await fetch('https://supersimplebackend.dev/cart');
+    const text = await response.text();
+    console.log(text);
+    return text;
   }
 }
 
