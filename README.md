@@ -26,6 +26,7 @@ Open the project folder:
 Bash
 
 cd Amazon_Project
+
 Open amazon.html in your web browser. A live server extension for VS Code is recommended for the best development experience.
 
 The project runs entirely on the front end, relying on the browser's capabilities and localStorage for data persistence.
