@@ -71,7 +71,7 @@ function renderProductsGrid() {
           Add to Cart
         </button>
       </div>
-    `
+    `;
   });
 
   document.querySelector('.js-product-grid').innerHTML = productsHTML;
@@ -102,5 +102,4 @@ function renderProductsGrid() {
       window.location.href = `amazon.html?search=${searchTerm}`;
     }
   });
-
 }

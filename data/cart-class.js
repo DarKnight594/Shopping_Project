@@ -34,14 +34,13 @@ class Cart {
 
     if (quantityElement) {
       const parsedQuantity = Number(quantityElement.value);
-      if (!isNaN(parsedQuantity) && parsedQuantity > 0) {
-          quantity = parsedQuantity;
-      } else {
-          console.warn(`Invalid quantity input for productId: ${productId}. Defaulting to ${quantity}.`);
-      }
-    } else {
+      if (!isNaN(parsedQuantity) && parsedQuantity > 0)
+        quantity = parsedQuantity;
+      else 
+        console.warn(`Invalid quantity input for productId: ${productId}. Defaulting to ${quantity}.`);
+    }
+    else
       console.log(`Quantity input not found for productId: ${productId}. Using default quantity: ${quantity}.`);
-    } 
 
     const addedMessage = document.querySelector(`.js-added-cart-${productId}`);
     if (addedMessage) {
@@ -56,10 +55,10 @@ class Cart {
       }, 2000);
 
       addedMessage.timeoutId = newTimeoutId;
-    } else {
-      console.warn(`Cart message element not found for productId: ${productId}. Cannot display "added to cart" message.`);
     }
-
+    else
+      console.warn(`Cart message element not found for productId: ${productId}. Cannot display "added to cart" message.`);
+    
     this.cartItems.forEach((cartItem) => {
       if(productId === cartItem.productId)
         matchingItem = cartItem;
@@ -116,7 +115,7 @@ class Cart {
     this.saveToStorage();
   }
 
-  clearCart() {
+  resetCart() {
     this.cartItems = [];
     this.saveToStorage();
     console.log('Cart has been cleared.');
@@ -130,4 +129,4 @@ class Cart {
   }
 }
 
-export const cart = new Cart('cart-oop');
+export const cart = new Cart('cart');

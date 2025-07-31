@@ -8,7 +8,6 @@ export function renderOrderSummary() {
 
   let cartSummaryHTML = '';
   cart.cartItems.forEach((cartItem) => {
-
     const productId = cartItem.productId;
     const matchingProduct = getProduct(productId);
 
@@ -16,8 +15,8 @@ export function renderOrderSummary() {
     const deliveryOption = getDeliveryOption(deliveryOptionId);
 
     const dateString = calculateDeliveryDate(deliveryOption);
-
-    cartSummaryHTML += `
+    cartSummaryHTML += 
+    `
       <div class="cart-item-container 
         js-cart-item-container-${matchingProduct.id}">
         <div class="delivery-date">

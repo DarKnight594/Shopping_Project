@@ -32,7 +32,7 @@ async function loadPage() {
     const orderTimeString = dayjs(order.orderTime).format('MMMM D');
 
     ordersHTML += 
-      `
+    `
       <div class="order-container">
         <div class="order-header">
           <div class="order-header-left-section">
@@ -55,7 +55,7 @@ async function loadPage() {
         <div class="order-details-grid">
          ${productsListHTML(order)}
         </div>
-    </div>
+      </div>
     `
   });
 
@@ -66,7 +66,8 @@ async function loadPage() {
     const product = getProduct(productDetails.productId);
     const deliveryDate = deliveryDateFrom(order, productDetails);
 
-      productsListHTML += `
+      productsListHTML += 
+      `
         <div class="product-image-container">
           <img src="${product.image}">
         </div>

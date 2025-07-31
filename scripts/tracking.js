@@ -29,7 +29,8 @@ async function loadPage() {
   const deliveredMessage = today < deliveryTime ? 'Arriving on' : 'Delivered on';
   const deliveryDate = deliveryDateFrom(order, productDetails);
 
-  const trackingHTML = `
+  const trackingHTML = 
+  `
     <a class="back-to-orders-link link-primary" href="orders.html">
       View all orders
     </a>
