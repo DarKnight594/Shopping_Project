@@ -20,6 +20,7 @@ Clone the repository:
 Bash
 
 git clone https://github.com/DarKnight594/Amazon_Project
+
 Open the project folder:
 
 Bash
