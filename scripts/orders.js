@@ -3,6 +3,25 @@ import {orders} from "../data/orders.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {formatCurrency} from "./utils/money.js";
 import {cart} from '../data/cart-class.js';
+import {calculateDeliveryDateFrom, deliveryOptions} from "../data/deliveryOptions.js";
+
+export function deliveryDateFrom(order, productDetails) {
+  const matchedOption = findDeliveryOption(order.orderTime, productDetails.estimatedDeliveryTime);
+
+  let deliveryDate = 'undefined';
+  if(matchedOption)
+    deliveryDate = calculateDeliveryDateFrom(order.orderTime, matchedOption);
+
+  function countDaysBetween(startDate, endDate) {
+    return dayjs(endDate).diff(dayjs(startDate), 'day');
+  }
+
+  function findDeliveryOption(orderTime, estimatedDeliveryTime){
+    const daysBetween = countDaysBetween(orderTime, estimatedDeliveryTime);
+    return deliveryOptions.find(option => option.deliveryDays === daysBetween) || null;
+  }
+  return deliveryDate;
+}
 
 async function loadPage() {
   updateCartQuantity();
@@ -44,7 +63,8 @@ async function loadPage() {
     let productsListHTML = '';
 
     order.products.forEach((productDetails) => {
-      const product = getProduct(productDetails.productId);
+    const product = getProduct(productDetails.productId);
+    const deliveryDate = deliveryDateFrom(order, productDetails);
 
       productsListHTML += `
         <div class="product-image-container">
@@ -55,9 +75,7 @@ async function loadPage() {
             ${product.name}
           </div>
           <div class="product-delivery-date">
-            Arriving on: ${
-              dayjs(productDetails.estimatedDeliveryTime).format('MMMM D')
-            }
+            Arriving on: ${deliveryDate}
           </div>
           <div class="product-quantity">
             Quantity: ${productDetails.quantity}

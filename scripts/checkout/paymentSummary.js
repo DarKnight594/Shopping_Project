@@ -64,7 +64,7 @@ export function renderPaymentSummary() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          cart: cart.cartItems
+          cart: cart
         })
       });
 
