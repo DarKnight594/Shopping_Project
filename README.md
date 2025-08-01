@@ -5,16 +5,25 @@ The application leverages client-side storage to persist user data, providing a 
 Features:-
 
 Product Browse: Browse a grid of products with images, names, prices, and ratings.
+
 Search Functionality: A robust search bar allows users to find products by name or keywords. The search is case-insensitive and uses whole-word matching to provide accurate results.
+
 Shopping Cart: Add products to a shopping cart with a customizable quantity selector.
+
 Persistent Cart: Cart data is saved in the browser's localStorage so it persists even if the user closes the browser.
+
 Quantity Management: Update or delete items directly from the cart summary page.
+
 Checkout Process: A simulated checkout page displays an order summary, including item costs, shipping, and tax.
+
 Order Placement: A "Place your order" button simulates a successful transaction with an external backend API. Upon confirmation, the cart is cleared, and the order details are saved to local history.
+
 Order History: The orders page displays a history of all placed orders, including individual products, quantities, and delivery dates.
+
 Responsive Design: The website is designed to work on both desktop and mobile devices.
 
 How to Run the Project
+
 Clone the repository:
 
 Bash
