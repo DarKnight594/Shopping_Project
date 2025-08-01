@@ -22,17 +22,13 @@ Order History: The orders page displays a history of all placed orders, includin
 
 Responsive Design: The website is designed to work on both desktop and mobile devices.
 
-How to Run the Project
+How to Run the Project-
 
 Clone the repository:
-
-Bash
 
 git clone https://github.com/DarKnight594/Amazon_Project
 
 Open the project folder:
-
-Bash
 
 cd Amazon_Project
 
