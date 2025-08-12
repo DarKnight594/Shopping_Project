@@ -4,7 +4,7 @@ This is a front-end-only clone of the Amazon e-commerce website, built to demons
 
 While the shopping cart and order history are stored locally in the browser for user persistence, the order placement process simulates a real-world transaction by sending the cart data to an external backend API. This demonstrates an understanding of front-end and back-end integration.
 
-Note: This project is for educational purposes only. It is not affiliated with, endorsed by, or sponsored by Amazon Inc. or any of its subsidiaries. As a static website, it does not collect any personal or sensitive user data. All data, including the shopping cart and order history, is stored locally in your browser and is not sent to a server for long-term storage or tracking.
+**Note:** This project is for educational purposes only. It is not affiliated with, endorsed by, or sponsored by Amazon Inc. or any of its subsidiaries. As a static website, it does not collect any personal or sensitive user data. All data, including the shopping cart and order history, is stored locally in your browser and is not sent to a server for long-term storage or tracking.
 
 Features
 
