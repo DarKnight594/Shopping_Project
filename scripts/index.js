@@ -2,20 +2,20 @@ import {cart} from '../data/cart-class.js';
 import {products, loadProducts} from '../data/products.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    const disclaimerPopup = document.getElementById('disclaimer-popup');
-    const gotItButton = document.getElementById('disclaimer-got-it-button');
-    const DISCLAIMER_SEEN_KEY = 'sessionDisclaimerSeen';
-    const hasSeenDisclaimer = sessionStorage.getItem(DISCLAIMER_SEEN_KEY);
+  const disclaimerPopup = document.getElementById('disclaimer-popup');
+  const gotItButton = document.getElementById('disclaimer-got-it-button');
+  const DISCLAIMER_SEEN_KEY = 'sessionDisclaimerSeen';
+  const hasSeenDisclaimer = sessionStorage.getItem(DISCLAIMER_SEEN_KEY);
 
-    if (!hasSeenDisclaimer) {
-        disclaimerPopup.style.display = 'flex';
-    }
+  if (!hasSeenDisclaimer) {
+      disclaimerPopup.style.display = 'flex';
+  }
 
-    gotItButton.addEventListener('click', () => {
-        disclaimerPopup.style.display = 'none';
-        sessionStorage.setItem(DISCLAIMER_SEEN_KEY, 'true');
-    });
+  gotItButton.addEventListener('click', () => {
+      disclaimerPopup.style.display = 'none';
+      sessionStorage.setItem(DISCLAIMER_SEEN_KEY, 'true');
   });
+});
 
 loadProducts(renderProductsGrid);
 
